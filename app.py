@@ -1,6 +1,6 @@
 from importlib import import_module
 import os
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, send_file
 import time
 import picamera
 from camera import Camera
@@ -37,21 +37,13 @@ def cameraRaw():
         camera.stop_preview()
 
 def cameraJpeg():
-    with picamera.PiCamera(sensor_mode=2) as camera2:
-        camera2.resolution = (2592,1944)
-        camera2.rotation = 90
+    with picamera.PiCamera(sensor_mode=2) as camera:
+        camera.resolution = (2592,1944)
+        camera.rotation = 90
         #camera2.start_preview()
         # Camera warm-up time
-        #time.sleep(1)
-        camera2.capture('foo.jpg')
-def cameraJpeg():
-    with picamera.PiCamera() as camera2:
-        camera2.resolution = (2592,1944)
-        camera2.rotation = 90
-        #camera2.start_preview()
-        # Camera warm-up time
-        #time.sleep(1)
-        camera2.capture('foo.jpg')
+        time.sleep(1)
+        camera.capture('foo2.jpg')
 @app.route('/')
 def index():
     """Video streaming home page."""
@@ -74,9 +66,14 @@ def video_feed():
 
 @app.route('/picture', methods=['POST','GET'])
 def basic():
-    
-    cameraJpeg()
-    return send_file('./foo.jpg', as_attachment=True)
+    with picamera.PiCamera(sensor_mode=2) as camera:
+        camera.resolution = (2592,1944)
+        camera.rotation = 90
+        #camera2.start_preview()
+        # Camera warm-up time
+        time.sleep(1)
+        camera.capture('foo3.jpg')
+    return send_file('./foo3.jpg', as_attachment=True)
 
 
 if __name__ == '__main__':
