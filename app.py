@@ -16,7 +16,7 @@ def cameraRaw():
         time.sleep(2)
 
         camera.framerate = 5
-        camera.rotation = 90
+        #camera.rotation = 90
         camera.start_preview()
         #camera.shutter_speed = camera.exposure_speed
         camera.shutter_speed =0
@@ -39,7 +39,7 @@ def cameraRaw():
 def cameraJpeg():
     with picamera.PiCamera(sensor_mode=2) as camera:
         camera.resolution = (2592,1944)
-        camera.rotation = 90
+        #camera.rotation = 90
         #camera2.start_preview()
         # Camera warm-up time
         time.sleep(1)
